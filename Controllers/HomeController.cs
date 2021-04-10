@@ -17,7 +17,7 @@ namespace FormSubmission.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet("")]
         public IActionResult Index()
         {
             return View();
@@ -33,5 +33,25 @@ namespace FormSubmission.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet("user")]
+        public IActionResult UserDisplay()
+        {
+            return View();
+        }
+        
+        [HttpPost("submit")]
+        public IActionResult Submit(User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("UserDisplay", newUser);
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
     }
+
 }
+
